@@ -1,0 +1,27 @@
+{
+  "name": "terraform-module-service-kubernetes",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edahlseng/terraform-module-service-kubernetes.git"
+  },
+  "author": "Eric Dahlseng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edahlseng/terraform-module-service-kubernetes/issues"
+  },
+  "homepage": "https://github.com/edahlseng/terraform-module-service-kubernetes#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@eric.dahlseng/standard-version": "^1.1.0"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
+  }
+}
