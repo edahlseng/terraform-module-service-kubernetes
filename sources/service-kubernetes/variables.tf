@@ -1,0 +1,96 @@
+variable "active_environment" {
+  type        = string
+  description = "Which environment (\"blue\" or \"green\") should be the active ennvironment"
+}
+
+variable "current_stack_state_configuration" {
+  type        = object({ bucket = string, key = string, region = string, workspace_key_prefix = string })
+  description = "Configuration for the remote state that represents the current stack"
+}
+
+variable "desired_count" {
+  type        = number
+  description = "The desired number of replicas"
+}
+
+variable "docker_image_active" {
+  type        = string
+  description = "The name & tag of the Docker image to use for the active environment. An empty string will use the previous value, and a value of \"-\" will remove the previous value."
+}
+
+variable "docker_image_passive" {
+  type        = string
+  description = "The name & tag of the Docker image to use for the passive environment. An empty string will use the previous value, and a value of \"-\" will remove the previous value."
+}
+
+variable "environment_variables" {
+  type = list(object({
+    name  = string,
+    value = string,
+    value_from = object({
+      config_map_key_ref = list(object({ key = string, name = string }))
+      field_ref          = list(object({ api_version = string, field_path = string }))
+      resource_field_ref = list(object({ container_name = string, resource = string }))
+      secret_key_ref     = list(object({ key = string, name = string }))
+    })
+  }))
+  description = "A list of environment variables to set within the pod's container"
+  default     = []
+}
+
+variable "image_pull_secret_name" {
+  type        = string
+  description = "The name of the Kubernetes secret to use when pulling the Docker image"
+  default     = null
+}
+
+variable "ingress_rules" {
+  type        = list(object({ host = string, path = string }))
+  description = "The list of host + path rules that should route traffic to the service"
+}
+
+variable "max_surge" {
+  type        = string
+  description = "The maximum number of pods that can be scheduled above the desired number of pods. See: https://www.terraform.io/docs/providers/kubernetes/r/deployment.html#max_surge"
+}
+
+variable "max_unavailable" {
+  type        = string
+  description = "The maximum number of pods that can be unavailable during the update. See: https://www.terraform.io/docs/providers/kubernetes/r/deployment.html#max_unavailable"
+}
+
+variable "new" {
+  type        = bool
+  description = "Whether this is a new service or not. This needs to be set to true for the first Terraform apply due to limitations with attempting to read remote state from a state file that doesn't exist. See: https://github.com/hashicorp/terraform/issues/22211"
+  default     = false
+}
+
+variable "port" {
+  type        = number
+  description = "The port exposed by the Docker container for accessing the service"
+}
+
+variable "resource_requests" {
+  type        = object({ cpu = string, memory = string })
+  description = "Request for the amount of resources to reserve for each pod"
+}
+
+variable "resource_limits" {
+  type        = object({ cpu = string, memory = string })
+  description = "Hard resource limits for each pod"
+}
+
+variable "service_name" {
+  type        = string
+  description = "The name of the service"
+}
+
+variable "service_state_output_name" {
+  type        = string
+  description = "The name of the output on the root Terraform stack that refers to the service's state"
+}
+
+variable "tls_certificate_issuer_name" {
+  type        = string
+  description = "The name of the issuer for TLS certificates"
+}
