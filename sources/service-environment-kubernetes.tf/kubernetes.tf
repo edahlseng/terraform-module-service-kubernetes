@@ -81,6 +81,8 @@ resource "kubernetes_deployment" "deployment" {
             }
           }
 
+          args = var.args
+
           image_pull_policy = "Always"
 
           resources {

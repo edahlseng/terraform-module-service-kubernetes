@@ -1,3 +1,9 @@
+variable "args" {
+  type        = list(string)
+  description = "Arguments to the entrypoint. The docker image's CMD is used if this is not provided."
+  default     = null
+}
+
 variable "desired_count" {
   type        = number
   description = "The desired number of replicas"
