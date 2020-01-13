@@ -59,6 +59,12 @@ variable "max_unavailable" {
   description = "The maximum number of pods that can be unavailable during the update. See: https://www.terraform.io/docs/providers/kubernetes/r/deployment.html#max_unavailable"
 }
 
+variable "namespace" {
+  type        = string
+  description = "The namespace within which to create resources"
+  default     = null
+}
+
 variable "new" {
   type        = bool
   description = "Whether this is a new service or not. This needs to be set to true for the first Terraform apply due to limitations with attempting to read remote state from a state file that doesn't exist. See: https://github.com/hashicorp/terraform/issues/22211"

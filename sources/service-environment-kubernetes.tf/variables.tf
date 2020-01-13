@@ -50,6 +50,12 @@ variable "max_unavailable" {
   description = "The maximum number of pods that can be unavailable during the update. See: https://www.terraform.io/docs/providers/kubernetes/r/deployment.html#max_unavailable"
 }
 
+variable "namespace" {
+  type        = string
+  description = "The namespace within which to create resources"
+  default     = null
+}
+
 variable "port" {
   type        = number
   description = "The port exposed by the Docker container for accessing the service"
