@@ -1,3 +1,9 @@
+variable "args" {
+  type        = list(string)
+  description = "Arguments to the entrypoint. The docker image's CMD is used if this is not provided."
+  default     = null
+}
+
 variable "active_environment" {
   type        = string
   description = "Which environment (\"blue\" or \"green\") should be the active ennvironment"

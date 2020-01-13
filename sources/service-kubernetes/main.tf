@@ -38,6 +38,7 @@ module "service-blue" {
 
   disabled = local.active_environment == "blue" ? local.docker_image_active == "-" : local.docker_image_passive == "-"
 
+  args                        = var.args
   desired_count               = var.desired_count
   docker_image                = local.active_environment == "blue" ? local.docker_image_active : local.docker_image_passive
   environment_variables       = var.environment_variables
@@ -58,6 +59,7 @@ module "service-green" {
 
   disabled = local.active_environment == "green" ? local.docker_image_active == "-" : local.docker_image_passive == "-"
 
+  args                        = var.args
   desired_count               = var.desired_count
   docker_image                = local.active_environment == "blue" ? local.docker_image_active : local.docker_image_passive
   environment_variables       = var.environment_variables
