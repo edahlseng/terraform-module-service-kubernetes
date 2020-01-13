@@ -45,6 +45,7 @@ module "service-blue" {
   ingress_rules               = var.ingress_rules
   max_surge                   = var.max_surge
   max_unavailable             = var.max_unavailable
+  namespace                   = var.namespace
   port                        = var.port
   resource_requests           = var.resource_requests
   resource_limits             = var.resource_limits
@@ -64,6 +65,7 @@ module "service-green" {
   ingress_rules               = var.ingress_rules
   max_surge                   = var.max_surge
   max_unavailable             = var.max_unavailable
+  namespace                   = var.namespace
   port                        = var.port
   resource_requests           = var.resource_requests
   resource_limits             = var.resource_limits

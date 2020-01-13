@@ -6,6 +6,7 @@ resource "kubernetes_deployment" "deployment" {
     labels = {
       app = var.service_environment_name
     }
+    namespace = var.namespace
   }
 
   spec {
@@ -110,7 +111,8 @@ resource "kubernetes_service" "service" {
   count = var.disabled ? 0 : 1
 
   metadata {
-    name = var.service_environment_name
+    name      = var.service_environment_name
+    namespace = var.namespace
   }
 
   spec {
@@ -138,6 +140,7 @@ resource "kubernetes_ingress" "ingress" {
       "ingress.kubernetes.io/ssl-redirect" = "true" # Redirects http to https
       "cert-manager.io/cluster-issuer"     = var.tls_certificate_issuer_name
     }
+    namespace = var.namespace
   }
 
   spec {
