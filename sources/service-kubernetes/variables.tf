@@ -106,3 +106,21 @@ variable "tls_certificate_issuer_name" {
   type        = string
   description = "The name of the issuer for TLS certificates"
 }
+
+variable "volume_mounts" {
+  type = list(object({
+    mount_path        = string
+    name              = string
+    read_only         = bool
+    sub_path          = string
+    mount_propagation = string
+  }))
+  description = "Pod volumes to mount into the container's filesystem. Cannot be updated."
+  default     = null
+}
+
+variable "volumes" {
+  type        = list(any)
+  description = "List of volumes that can be mounted by containers belonging to the pod"
+  default     = null
+}

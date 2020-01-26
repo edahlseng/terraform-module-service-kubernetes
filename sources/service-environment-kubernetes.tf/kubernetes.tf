@@ -95,12 +95,45 @@ resource "kubernetes_deployment" "deployment" {
               memory = var.resource_limits.memory
             }
           }
+
+          dynamic "volume_mount" {
+            for_each = var.volume_mounts
+            content {
+              mount_path        = volume_mount.value.mount_path
+              name              = volume_mount.value.name
+              read_only         = volume_mount.value.read_only
+              sub_path          = volume_mount.value.sub_path
+              mount_propagation = volume_mount.value.mount_propagation
+            }
+          }
         }
 
         dynamic "image_pull_secrets" {
           for_each = var.image_pull_secret_name == null ? [] : [var.image_pull_secret_name]
           content {
             name = image_pull_secrets.value
+          }
+        }
+
+        dynamic "volume" {
+          for_each = var.volumes
+          content {
+            name = volume.value.name
+
+            dynamic "config_map" {
+              for_each = volume.value.config_map == null ? [] : [volume.value.config_map]
+              content {
+                name = config_map.value.name
+
+                dynamic "items" {
+                  for_each = config_map.value.items
+                  content {
+                    key  = items.value.key
+                    path = items.value.path
+                  }
+                }
+              }
+            }
           }
         }
       }
