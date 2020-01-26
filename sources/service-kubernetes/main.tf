@@ -52,6 +52,8 @@ module "service-blue" {
   resource_limits             = var.resource_limits
   service_environment_name    = "${var.service_name}-blue"
   tls_certificate_issuer_name = var.tls_certificate_issuer_name
+  volume_mounts               = var.volume_mounts
+  volumes                     = var.volumes
 }
 
 module "service-green" {
@@ -73,4 +75,6 @@ module "service-green" {
   resource_limits             = var.resource_limits
   service_environment_name    = "${var.service_name}-green"
   tls_certificate_issuer_name = var.tls_certificate_issuer_name
+  volume_mounts               = var.volume_mounts
+  volumes                     = var.volumes
 }
