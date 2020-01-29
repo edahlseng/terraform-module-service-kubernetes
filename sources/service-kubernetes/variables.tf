@@ -1,3 +1,13 @@
+variable "acme_account_private_key_pem" {
+  type        = string
+  description = "The private key of the account that is requesting the certificate"
+}
+
+variable "acme_certificate_dns_provider" {
+  type        = string
+  description = "The DNS provider to use for ACME DNS challenges"
+}
+
 variable "args" {
   type        = list(string)
   description = "Arguments to the entrypoint. The docker image's CMD is used if this is not provided."
@@ -100,11 +110,6 @@ variable "service_name" {
 variable "service_state_output_name" {
   type        = string
   description = "The name of the output on the root Terraform stack that refers to the service's state"
-}
-
-variable "tls_certificate_issuer_name" {
-  type        = string
-  description = "The name of the issuer for TLS certificates"
 }
 
 variable "volume_mounts" {

@@ -42,7 +42,7 @@ variable "image_pull_secret_name" {
 }
 
 variable "ingress_rules" {
-  type        = list(object({ host = string, path = string }))
+  type        = list(object({ host = string, path = string, tls_secret_name = string }))
   description = "The list of host + path rules that should route traffic to the service"
 }
 
@@ -80,11 +80,6 @@ variable "resource_limits" {
 variable "service_environment_name" {
   type        = string
   description = "The name of the service environment"
-}
-
-variable "tls_certificate_issuer_name" {
-  type        = string
-  description = "The name of the issuer for TLS certificates"
 }
 
 variable "volume_mounts" {
