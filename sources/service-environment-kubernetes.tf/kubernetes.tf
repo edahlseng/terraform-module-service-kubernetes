@@ -173,7 +173,6 @@ resource "kubernetes_ingress" "ingress" {
     annotations = {
       "kubernetes.io/ingress.class"        = "nginx"
       "ingress.kubernetes.io/ssl-redirect" = "true" # Redirects http to https
-      "cert-manager.io/cluster-issuer"     = var.tls_certificate_issuer_name
     }
     namespace = var.namespace
   }
@@ -201,7 +200,7 @@ resource "kubernetes_ingress" "ingress" {
       for_each = distinct(var.ingress_rules[*].host)
       content {
         hosts       = [tls.value]
-        secret_name = "${var.service_environment_name}-${tls.value}-tls"
+        secret_name = [for x in var.ingress_rules[*] : x.tls_secret_name if x.host == tls.value][0]
       }
     }
   }
