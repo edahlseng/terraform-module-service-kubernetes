@@ -170,10 +170,10 @@ resource "kubernetes_ingress" "ingress" {
 
   metadata {
     name = var.service_environment_name
-    annotations = {
+    annotations = merge({
       "kubernetes.io/ingress.class"        = "nginx"
       "ingress.kubernetes.io/ssl-redirect" = "true" # Redirects http to https
-    }
+    }, var.ingress_annotations)
     namespace = var.namespace
   }
 
