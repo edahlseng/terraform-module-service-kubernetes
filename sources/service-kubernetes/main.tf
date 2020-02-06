@@ -49,6 +49,7 @@ module "service-blue" {
   docker_image             = local.active_environment == "blue" ? local.docker_image_active : local.docker_image_passive
   environment_variables    = var.environment_variables
   image_pull_secret_name   = var.image_pull_secret_name
+  ingress_annotations      = var.ingress_annotations
   ingress_rules            = local.ingress_rules
   max_surge                = var.max_surge
   max_unavailable          = var.max_unavailable
@@ -71,6 +72,7 @@ module "service-green" {
   docker_image             = local.active_environment == "blue" ? local.docker_image_active : local.docker_image_passive
   environment_variables    = var.environment_variables
   image_pull_secret_name   = var.image_pull_secret_name
+  ingress_annotations      = var.ingress_annotations
   ingress_rules            = local.ingress_rules
   max_surge                = var.max_surge
   max_unavailable          = var.max_unavailable

@@ -60,6 +60,12 @@ variable "image_pull_secret_name" {
   default     = null
 }
 
+variable "ingress_annotations" {
+  type        = map(string)
+  description = "Annotations to add to the ingress resource"
+  default     = {}
+}
+
 variable "ingress_rules" {
   type        = list(object({ host = string, path = string }))
   description = "The list of host + path rules that should route traffic to the service"
