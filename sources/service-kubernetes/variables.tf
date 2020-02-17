@@ -127,11 +127,11 @@ variable "volume_mounts" {
     mount_propagation = string
   }))
   description = "Pod volumes to mount into the container's filesystem. Cannot be updated."
-  default     = null
+  default     = []
 }
 
 variable "volumes" {
   type        = list(any)
   description = "List of volumes that can be mounted by containers belonging to the pod"
-  default     = null
+  default     = []
 }
