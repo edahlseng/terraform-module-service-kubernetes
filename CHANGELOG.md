@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.3.0](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.2.1...v0.3.0) (2020-02-19)
+
+
+### Features
+
+* Use wildcard if common name is longer than SSL cert upper bound ([4d30476](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/4d30476))
+
+
+
 ## [0.2.1](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.2.0...v0.2.1) (2020-02-17)
 
 
