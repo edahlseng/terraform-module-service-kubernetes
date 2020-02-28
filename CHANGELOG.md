@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.1](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.3.0...v0.3.1) (2020-02-28)
+
+
+### Bug Fixes
+
+* Use default tls_certificate_name when certificate doesn't exist ([8689728](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/8689728))
+
+
+
 # [0.3.0](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.2.1...v0.3.0) (2020-02-19)
 
 
