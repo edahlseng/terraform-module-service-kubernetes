@@ -1,6 +1,6 @@
-# variable "hosted_zone_name" {
+# variable "hosted_zone_id" {
 #   type        = string
-#   description = "The hosted zone to add the DNS record to"
+#   description = "The hosted zone id to add the DNS record to"
 # }
 #
 # variable "include_active_environment" {
@@ -33,7 +33,7 @@
 #
 variable "foreach_workaround" {
   type = list(object({
-    hosted_zone_name            = string
+    hosted_zone_id              = string
     include_active_environment  = bool
     include_passive_environment = bool
     name                        = string
