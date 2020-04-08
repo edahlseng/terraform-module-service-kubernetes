@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.4.0](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.3.1...v0.4.0) (2020-04-08)
+
+
+### Features
+
+* Use zone_id attribute instead of domain in cloudflare_record resources ([c8f35ab](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/c8f35ab))
+
+
+
 ## [0.3.1](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.3.0...v0.3.1) (2020-02-28)
 
 
