@@ -1,7 +1,7 @@
 terraform {
   required_version = ">= 0.12.0"
   required_providers {
-    cloudflare = ">= 1.15.0"
+    cloudflare = ">= 2.0.0"
   }
 }
 
@@ -13,7 +13,7 @@ locals {
 resource "cloudflare_record" "active_domain" {
   for_each = local.active_domains
 
-  domain  = each.value.hosted_zone_name
+  zone_id = each.value.hosted_zone_id
   name    = each.value.name
   value   = each.value.value
   type    = "CNAME"
@@ -24,7 +24,7 @@ resource "cloudflare_record" "active_domain" {
 resource "cloudflare_record" "passive_domain" {
   for_each = local.passive_domains
 
-  domain  = each.value.hosted_zone_name
+  zone_id = each.value.hosted_zone_id
   name    = "passive.${each.value.name}"
   value   = each.value.value
   type    = "CNAME"
