@@ -27,8 +27,7 @@ resource "kubernetes_secret" "tls_certificate" {
   type = "kubernetes.io/tls"
 
   data = {
-    "ca.crt"  = acme_certificate.certificate[each.key].issuer_pem
-    "tls.crt" = acme_certificate.certificate[each.key].certificate_pem
+    "tls.crt" = "${acme_certificate.certificate[each.key].certificate_pem}${acme_certificate.certificate[each.key].issuer_pem}"
     "tls.key" = acme_certificate.certificate[each.key].private_key_pem
   }
 }
