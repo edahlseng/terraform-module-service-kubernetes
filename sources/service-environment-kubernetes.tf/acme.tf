@@ -20,7 +20,7 @@ resource "kubernetes_secret" "tls_certificate" {
   for_each = local.common_names
 
   metadata {
-    name      = "${var.service_name}-${each.key}-tls"
+    name      = "${var.service_environment_name}-${each.key}-tls"
     namespace = var.namespace
   }
 
