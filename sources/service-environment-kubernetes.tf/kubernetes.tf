@@ -179,7 +179,7 @@ resource "kubernetes_ingress" "ingress" {
 
   spec {
     dynamic "rule" {
-      for_each = var.ingress_rules
+      for_each = local.ingress_rules
       content {
         host = rule.value.host
 
@@ -197,10 +197,10 @@ resource "kubernetes_ingress" "ingress" {
     }
 
     dynamic "tls" {
-      for_each = distinct(var.ingress_rules[*].host)
+      for_each = distinct(local.ingress_rules[*].host)
       content {
         hosts       = [tls.value]
-        secret_name = [for x in var.ingress_rules[*] : x.tls_secret_name if x.host == tls.value][0]
+        secret_name = [for x in local.ingress_rules[*] : x.tls_secret_name if x.host == tls.value][0]
       }
     }
   }
