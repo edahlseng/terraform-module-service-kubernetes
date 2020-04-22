@@ -32,9 +32,12 @@ locals {
   docker_image_active  = var.docker_image_active == "" ? local.docker_image_active_calculated : var.docker_image_active
   docker_image_passive = var.docker_image_passive == "" ? local.docker_image_passive_calculated : var.docker_image_passive
 
-  ingress_rules_passive = [for x in var.ingress_rules : {
-    host = "passive.${x.host}",
-    path = x.path,
+  ingresses_passive = [for x in var.ingresses : {
+    annotations = x.annotations
+    rules = [for y in x.rules : {
+      host = "passive.${y.host}",
+      path = y.path,
+    }]
   }]
 }
 
@@ -50,8 +53,7 @@ module "service-blue" {
   docker_image                  = local.active_environment == "blue" ? local.docker_image_active : local.docker_image_passive
   environment_variables         = var.environment_variables
   image_pull_secret_name        = var.image_pull_secret_name
-  ingress_annotations           = var.ingress_annotations
-  ingress_rules                 = local.active_environment == "blue" ? var.ingress_rules : local.ingress_rules_passive
+  ingresses                     = local.active_environment == "blue" ? var.ingresses : local.ingresses_passive
   max_surge                     = var.max_surge
   max_unavailable               = var.max_unavailable
   namespace                     = var.namespace
@@ -75,8 +77,7 @@ module "service-green" {
   docker_image                  = local.active_environment == "green" ? local.docker_image_active : local.docker_image_passive
   environment_variables         = var.environment_variables
   image_pull_secret_name        = var.image_pull_secret_name
-  ingress_annotations           = var.ingress_annotations
-  ingress_rules                 = local.active_environment == "green" ? var.ingress_rules : local.ingress_rules_passive
+  ingresses                     = local.active_environment == "green" ? var.ingresses : local.ingresses_passive
   max_surge                     = var.max_surge
   max_unavailable               = var.max_unavailable
   namespace                     = var.namespace

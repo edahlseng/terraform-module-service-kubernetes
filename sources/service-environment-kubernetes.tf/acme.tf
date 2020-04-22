@@ -2,11 +2,12 @@ locals {
   # Certificate common names can be at maximum 64 characters (see "Upper Bounds"
   # at https://tools.ietf.org/html/rfc5280). We will attempt to use wildcards if
   # we have a host that is longer than 64 characters
-  common_names = { for x in toset(var.ingress_rules[*].host) : x => length(x) > 64 ? replace(x, "/^[^\\.]+/", "*") : x }
+
+  common_names = { for x in toset(flatten(var.ingresses[*].rules[*].host)) : x => length(x) > 64 ? replace(x, "/^[^\\.]+/", "*") : x }
 }
 
 resource "acme_certificate" "certificate" {
-  for_each = local.common_names
+  for_each = var.disabled ? {} : local.common_names
 
   account_key_pem = var.acme_account_private_key_pem
   common_name     = each.value
@@ -17,7 +18,7 @@ resource "acme_certificate" "certificate" {
 }
 
 resource "kubernetes_secret" "tls_certificate" {
-  for_each = local.common_names
+  for_each = var.disabled ? {} : local.common_names
 
   metadata {
     name      = "${var.service_environment_name}-${each.key}-tls"

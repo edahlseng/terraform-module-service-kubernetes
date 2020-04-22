@@ -166,20 +166,20 @@ resource "kubernetes_service" "service" {
 }
 
 resource "kubernetes_ingress" "ingress" {
-  count = var.disabled ? 0 : 1
+  count = var.disabled ? 0 : length(var.ingresses)
 
   metadata {
     name = var.service_environment_name
     annotations = merge({
       "kubernetes.io/ingress.class"        = "nginx"
       "ingress.kubernetes.io/ssl-redirect" = "true" # Redirects http to https
-    }, var.ingress_annotations)
+    }, var.ingresses[count.index].annotations)
     namespace = var.namespace
   }
 
   spec {
     dynamic "rule" {
-      for_each = local.ingress_rules
+      for_each = var.ingresses[count.index].rules
       content {
         host = rule.value.host
 
@@ -197,10 +197,13 @@ resource "kubernetes_ingress" "ingress" {
     }
 
     dynamic "tls" {
-      for_each = distinct(local.ingress_rules[*].host)
+      for_each = distinct(var.ingresses[count.index].rules[*].host)
       content {
-        hosts       = [tls.value]
-        secret_name = [for x in local.ingress_rules[*] : x.tls_secret_name if x.host == tls.value][0]
+        hosts = [tls.value]
+        secret_name = [for x in var.ingresses[count.index].rules[*] :
+          (lookup(kubernetes_secret.tls_certificate, x.host, null) == null ? "" : kubernetes_secret.tls_certificate[x.host].metadata[0].name)
+          if x.host == tls.value
+        ][0]
       }
     }
   }
