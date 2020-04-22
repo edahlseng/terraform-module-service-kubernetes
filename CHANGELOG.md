@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.5.0](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.4.0...v0.5.0) (2020-04-22)
+
+
+### Bug Fixes
+
+* Concatenate certificate and issuer chain in Kubernetes TLS secret ([ed52652](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/ed52652))
+* Fix creation of passive environment ingresses ([f9aafdc](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/f9aafdc))
+
+
+### Features
+
+* Combine ingress rules and annotations into single variable ([5f9bd99](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/5f9bd99))
+
+
+
 # [0.4.0](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.3.1...v0.4.0) (2020-04-08)
 
 
