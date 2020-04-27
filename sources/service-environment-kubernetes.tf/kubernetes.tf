@@ -186,8 +186,8 @@ resource "kubernetes_ingress" "ingress" {
         http {
           path {
             backend {
-              service_name = kubernetes_service.service[count.index].metadata.0.name
-              service_port = kubernetes_service.service[count.index].spec.0.port.0.port
+              service_name = kubernetes_service.service[0].metadata.0.name
+              service_port = kubernetes_service.service[0].spec.0.port.0.port
             }
 
             path = rule.value.path
