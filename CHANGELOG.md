@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.1](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.5.0...v0.5.1) (2020-04-27)
+
+
+### Bug Fixes
+
+* Correct resource reference when there are multiple ingresses ([07a99b7](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/07a99b7))
+
+
+
 # [0.5.0](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.4.0...v0.5.0) (2020-04-22)
 
 
