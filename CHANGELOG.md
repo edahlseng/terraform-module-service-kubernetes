@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.2](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.5.1...v0.5.2) (2020-04-27)
+
+
+### Bug Fixes
+
+* Add suffix to ingress names when there are multiple ingresses ([784b0d7](https://github.com/edahlseng/terraform-module-service-kubernetes/commit/784b0d7))
+
+
+
 ## [0.5.1](https://github.com/edahlseng/terraform-module-service-kubernetes/compare/v0.5.0...v0.5.1) (2020-04-27)
 
 
