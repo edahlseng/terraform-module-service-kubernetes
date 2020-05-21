@@ -6,8 +6,8 @@ terraform {
 }
 
 locals {
-  active_domains  = { for x in var.foreach_workaround : x.name => x if x.include_active_environment }
-  passive_domains = { for x in var.foreach_workaround : x.name => x if x.include_passive_environment }
+  active_domains  = var.skip_cname_creation ? {} : { for x in var.foreach_workaround : x.name => x if x.include_active_environment }
+  passive_domains = var.skip_cname_creation ? {} : { for x in var.foreach_workaround : x.name => x if x.include_passive_environment }
 }
 
 resource "cloudflare_record" "active_domain" {

@@ -42,3 +42,9 @@ variable "foreach_workaround" {
   }))
   description = "A list of objects containing the variables described above, as a workaround to the lack of foreach with modules"
 }
+
+variable "skip_cname_creation" {
+  type        = bool
+  description = "Whether to skip Cloudflare record creation"
+  default     = false
+}
