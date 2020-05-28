@@ -35,8 +35,9 @@ locals {
   ingresses_passive = [for x in var.ingresses : {
     annotations = x.annotations
     rules = [for y in x.rules : {
-      host = "passive.${y.host}",
-      path = y.path,
+      host                        = "passive.${y.host}",
+      path                        = y.path,
+      tls_certificate_secret_name = y.tls_certificate_secret_name
     }]
   }]
 }
@@ -46,23 +47,21 @@ module "service-blue" {
 
   disabled = local.active_environment == "blue" ? local.docker_image_active == "-" : local.docker_image_passive == "-"
 
-  acme_account_private_key_pem  = var.acme_account_private_key_pem
-  acme_certificate_dns_provider = var.acme_certificate_dns_provider
-  args                          = var.args
-  desired_count                 = var.desired_count
-  docker_image                  = local.active_environment == "blue" ? local.docker_image_active : local.docker_image_passive
-  environment_variables         = var.environment_variables
-  image_pull_secret_name        = var.image_pull_secret_name
-  ingresses                     = local.active_environment == "blue" ? var.ingresses : local.ingresses_passive
-  max_surge                     = var.max_surge
-  max_unavailable               = var.max_unavailable
-  namespace                     = var.namespace
-  port                          = var.port
-  resource_requests             = var.resource_requests
-  resource_limits               = var.resource_limits
-  service_environment_name      = "${var.service_name}-blue"
-  volume_mounts                 = var.volume_mounts
-  volumes                       = var.volumes
+  args                     = var.args
+  desired_count            = var.desired_count
+  docker_image             = local.active_environment == "blue" ? local.docker_image_active : local.docker_image_passive
+  environment_variables    = var.environment_variables
+  image_pull_secret_name   = var.image_pull_secret_name
+  ingresses                = local.active_environment == "blue" ? var.ingresses : local.ingresses_passive
+  max_surge                = var.max_surge
+  max_unavailable          = var.max_unavailable
+  namespace                = var.namespace
+  port                     = var.port
+  resource_requests        = var.resource_requests
+  resource_limits          = var.resource_limits
+  service_environment_name = "${var.service_name}-blue"
+  volume_mounts            = var.volume_mounts
+  volumes                  = var.volumes
 }
 
 module "service-green" {
@@ -70,21 +69,19 @@ module "service-green" {
 
   disabled = local.active_environment == "green" ? local.docker_image_active == "-" : local.docker_image_passive == "-"
 
-  acme_account_private_key_pem  = var.acme_account_private_key_pem
-  acme_certificate_dns_provider = var.acme_certificate_dns_provider
-  args                          = var.args
-  desired_count                 = var.desired_count
-  docker_image                  = local.active_environment == "green" ? local.docker_image_active : local.docker_image_passive
-  environment_variables         = var.environment_variables
-  image_pull_secret_name        = var.image_pull_secret_name
-  ingresses                     = local.active_environment == "green" ? var.ingresses : local.ingresses_passive
-  max_surge                     = var.max_surge
-  max_unavailable               = var.max_unavailable
-  namespace                     = var.namespace
-  port                          = var.port
-  resource_requests             = var.resource_requests
-  resource_limits               = var.resource_limits
-  service_environment_name      = "${var.service_name}-green"
-  volume_mounts                 = var.volume_mounts
-  volumes                       = var.volumes
+  args                     = var.args
+  desired_count            = var.desired_count
+  docker_image             = local.active_environment == "green" ? local.docker_image_active : local.docker_image_passive
+  environment_variables    = var.environment_variables
+  image_pull_secret_name   = var.image_pull_secret_name
+  ingresses                = local.active_environment == "green" ? var.ingresses : local.ingresses_passive
+  max_surge                = var.max_surge
+  max_unavailable          = var.max_unavailable
+  namespace                = var.namespace
+  port                     = var.port
+  resource_requests        = var.resource_requests
+  resource_limits          = var.resource_limits
+  service_environment_name = "${var.service_name}-green"
+  volume_mounts            = var.volume_mounts
+  volumes                  = var.volumes
 }

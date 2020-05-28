@@ -197,13 +197,10 @@ resource "kubernetes_ingress" "ingress" {
     }
 
     dynamic "tls" {
-      for_each = distinct(var.ingresses[count.index].rules[*].host)
+      for_each = { for x in var.ingresses[count.index].rules : x.tls_certificate_secret_name => x.host... }
       content {
-        hosts = [tls.value]
-        secret_name = [for x in var.ingresses[count.index].rules[*] :
-          (lookup(kubernetes_secret.tls_certificate, x.host, null) == null ? "" : kubernetes_secret.tls_certificate[x.host].metadata[0].name)
-          if x.host == tls.value
-        ][0]
+        hosts       = tls.value
+        secret_name = tls.key
       }
     }
   }
