@@ -1,13 +1,3 @@
-variable "acme_account_private_key_pem" {
-  type        = string
-  description = "The private key of the account that is requesting the certificate"
-}
-
-variable "acme_certificate_dns_provider" {
-  type        = string
-  description = "The DNS provider to use for ACME DNS challenges"
-}
-
 variable "args" {
   type        = list(string)
   description = "Arguments to the entrypoint. The docker image's CMD is used if this is not provided."
@@ -63,7 +53,7 @@ variable "image_pull_secret_name" {
 variable "ingresses" {
   type = list(object({
     annotations = map(string),
-    rules       = list(object({ host = string, path = string }))
+    rules       = list(object({ host = string, path = string, tls_certificate_secret_name = string }))
   }))
   description = "The list of ingresses to create for routing traffic to the service"
 }
