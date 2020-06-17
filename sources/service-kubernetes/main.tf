@@ -32,10 +32,20 @@ locals {
   docker_image_active  = var.docker_image_active == "" ? local.docker_image_active_calculated : var.docker_image_active
   docker_image_passive = var.docker_image_passive == "" ? local.docker_image_passive_calculated : var.docker_image_passive
 
-  ingresses_passive = [for x in var.ingresses : {
+  ingresses_passive_intermediate = [for x in var.ingresses : {
     annotations = x.annotations
     rules = [for y in x.rules : {
-      host                        = "passive.${y.host}",
+      host_pieces                 = split(".", y.host),
+      host                        = y.host,
+      path                        = y.path,
+      tls_certificate_secret_name = y.tls_certificate_secret_name
+    }]
+  }]
+
+  ingresses_passive = [for x in local.ingresses_passive_intermediate : {
+    annotations = x.annotations
+    rules = [for y in x.rules : {
+      host                        = join(".", concat(["${y.host_pieces[0]}-passive"], length(y.host_pieces) > 1 ? slice(y.host_pieces, 1, length(y.host_pieces)) : []))
       path                        = y.path,
       tls_certificate_secret_name = y.tls_certificate_secret_name
     }]
