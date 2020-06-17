@@ -22,10 +22,15 @@ resource "cloudflare_record" "active_domain" {
 }
 
 resource "cloudflare_record" "passive_domain" {
-  for_each = local.passive_domains
+  for_each = { for y in local.passive_domains : y.name => {
+    name_pieces    = split(".", y.name)
+    value          = y.value
+    proxied        = y.proxied
+    hosted_zone_id = y.hosted_zone_id
+  } }
 
   zone_id = each.value.hosted_zone_id
-  name    = "passive.${each.value.name}"
+  name    = join(".", concat(["${each.value.name_pieces[0]}-passive"], length(each.value.name_pieces) > 1 ? slice(each.value.name_pieces, 1, length(each.value.name_pieces)) : []))
   value   = each.value.value
   type    = "CNAME"
   ttl     = 1
